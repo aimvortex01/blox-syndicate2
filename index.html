@@ -17,7 +17,6 @@
   --accent-green:#00ff88;--text-primary:#f0f0ff;
   --text-secondary:#8888aa;--text-muted:#4a4a6a;
   --border-subtle:rgba(255,255,255,0.06);
-  --header-h:48px;--tabbar-h:60px;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Rajdhani',sans-serif;background:var(--bg-deep);color:var(--text-primary);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -61,19 +60,14 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-deep);color:var(--tex
 .landing-btn:active::after{opacity:1}
 .landing-btn span{position:relative;z-index:1}
 
-#dashboard{display:none;height:100vh;overflow:hidden}
+#dashboard{display:none;min-height:100vh;background:linear-gradient(180deg,rgba(0,229,255,.015) 0%,transparent 25%),var(--bg-deep)}
 #dashboard.show{display:block;animation:fadeInDash .6s ease forwards}
 @keyframes fadeInDash{from{opacity:0}to{opacity:1}}
 
-.header{position:sticky;top:0;z-index:100;height:var(--header-h);padding:0 1.25rem;background:rgba(5,5,16,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;gap:.65rem}
+.header{position:sticky;top:0;z-index:100;height:48px;padding:0 1.25rem;background:rgba(5,5,16,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;gap:.65rem}
 .hdr-dot{width:6px;height:6px;background:var(--accent-green);border-radius:50%;animation:dotGlow 2s ease-in-out infinite}
 @keyframes dotGlow{0%,100%{opacity:1;box-shadow:0 0 6px var(--accent-green)}50%{opacity:.35}}
 .hdr-title{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-cyan);text-shadow:0 0 12px rgba(0,229,255,.25)}
-
-.pages-wrap{height:calc(100vh - var(--header-h) - var(--tabbar-h));overflow:hidden;position:relative}
-.pages-scroll{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none}
-.pages-scroll::-webkit-scrollbar{display:none}
-.page{flex:0 0 100%;width:100%;scroll-snap-align:start;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:1rem}
 
 .home-hero{text-align:center;padding:2.5rem 1.5rem 1rem}
 .home-emoji{font-size:2.8rem;margin-bottom:.75rem;filter:drop-shadow(0 0 20px rgba(0,229,255,.3))}
@@ -89,7 +83,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-deep);color:var(--tex
 .stat-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700}
 .stat-lbl{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-align:center}
 
-.targets-page{padding:1.25rem}
+.targets-section{padding:0 1.25rem 4rem}
 .sec-hdr{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
 .sec-line{flex:1;height:1px}
 .sec-line:first-child{background:linear-gradient(90deg,var(--accent-cyan),transparent)}
@@ -128,15 +122,6 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-deep);color:var(--tex
 .empty{text-align:center;padding:4rem 2rem}
 .empty-icon{font-size:3rem;opacity:.45;margin-bottom:.75rem}
 .empty-txt{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:.1em;color:var(--text-muted)}
-
-.tab-bar{position:fixed;bottom:0;left:0;right:0;height:var(--tabbar-h);z-index:100;background:rgba(5,5,16,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-around;padding-bottom:env(safe-area-inset-bottom)}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:none;border:none;cursor:pointer;padding:.5rem 0;-webkit-tap-highlight-color:transparent;transition:color .3s;position:relative;color:var(--text-muted)}
-.tab-btn svg{width:22px;height:22px;transition:all .3s}
-.tab-btn .tab-label{font-family:'Orbitron',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:color .3s}
-.tab-btn.active{color:var(--accent-cyan)}
-.tab-btn.active svg{filter:drop-shadow(0 0 6px rgba(0,229,255,.5))}
-.tab-btn::after{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--accent-cyan);border-radius:1px;transition:width .3s ease}
-.tab-btn.active::after{width:24px}
 
 @media(max-width:360px){
   .stat-ring{width:72px;height:72px}
@@ -177,68 +162,44 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-deep);color:var(--tex
     <div class="hdr-title">Target Tracker</div>
   </header>
 
-  <div class="pages-wrap">
-    <div class="pages-scroll" id="pagesScroll">
+  <div class="home-hero">
+    <div class="home-emoji">&#128065;</div>
+    <div class="home-title">We are watching</div>
+    <div class="home-sub">Your every move is being tracked</div>
+  </div>
 
-      <section class="page" id="pageHome">
-        <div class="home-hero">
-          <div class="home-emoji">&#128065;</div>
-          <div class="home-title">We are watching</div>
-          <div class="home-sub">Your every move is being tracked</div>
-        </div>
-        <div class="stats">
-          <div class="stat-item">
-            <div class="stat-ring">
-              <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringTargets" cx="48" cy="48" r="40" style="stroke:var(--accent-cyan);filter:drop-shadow(0 0 6px rgba(0,229,255,.4))"/></svg>
-              <div class="stat-num" id="numTargets">0</div>
-            </div>
-            <div class="stat-lbl">Targets</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-ring">
-              <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringPhotos" cx="48" cy="48" r="40" style="stroke:var(--accent-purple);filter:drop-shadow(0 0 6px rgba(168,85,247,.4))"/></svg>
-              <div class="stat-num" id="numPhotos">0</div>
-            </div>
-            <div class="stat-lbl">Photos</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-ring">
-              <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringVideos" cx="48" cy="48" r="40" style="stroke:var(--accent-pink);filter:drop-shadow(0 0 6px rgba(255,45,120,.4))"/></svg>
-              <div class="stat-num" id="numVideos">0</div>
-            </div>
-            <div class="stat-lbl">Videos</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="pageTargets">
-        <div class="targets-page">
-          <div class="sec-hdr">
-            <div class="sec-line"></div>
-            <h2 class="sec-title">Target Achieved</h2>
-            <div class="sec-line"></div>
-          </div>
-          <div class="grid" id="grid"></div>
-        </div>
-      </section>
-
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-ring">
+        <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringTargets" cx="48" cy="48" r="40" style="stroke:var(--accent-cyan);filter:drop-shadow(0 0 6px rgba(0,229,255,.4))"/></svg>
+        <div class="stat-num" id="numTargets">0</div>
+      </div>
+      <div class="stat-lbl">Targets</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-ring">
+        <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringPhotos" cx="48" cy="48" r="40" style="stroke:var(--accent-purple);filter:drop-shadow(0 0 6px rgba(168,85,247,.4))"/></svg>
+        <div class="stat-num" id="numPhotos">0</div>
+      </div>
+      <div class="stat-lbl">Photos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-ring">
+        <svg viewBox="0 0 96 96"><circle class="ring-track" cx="48" cy="48" r="40"/><circle class="ring-fill" id="ringVideos" cx="48" cy="48" r="40" style="stroke:var(--accent-pink);filter:drop-shadow(0 0 6px rgba(255,45,120,.4))"/></svg>
+        <div class="stat-num" id="numVideos">0</div>
+      </div>
+      <div class="stat-lbl">Videos</div>
     </div>
   </div>
 
-  <nav class="tab-bar">
-    <button class="tab-btn active" id="tab0" onclick="switchTab(0)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2"/>
-      </svg>
-      <span class="tab-label">Home</span>
-    </button>
-    <button class="tab-btn" id="tab1" onclick="switchTab(1)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-      </svg>
-      <span class="tab-label">Targets</span>
-    </button>
-  </nav>
+  <div class="targets-section">
+    <div class="sec-hdr">
+      <div class="sec-line"></div>
+      <h2 class="sec-title">Target Achieved</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
 </div>
 <script>
 const firebaseConfig = {
@@ -269,60 +230,6 @@ document.getElementById('continueBtn').addEventListener('click', function() {
     animateRings();
   }, 800);
 });
-
-var pagesScroll = document.getElementById('pagesScroll');
-var totalPages = 2;
-var currentTab = 0;
-
-function switchTab(index) {
-  if (index < 0 || index >= totalPages) return;
-  currentTab = index;
-  pagesScroll.scrollTo({ left: index * pagesScroll.clientWidth, behavior: 'smooth' });
-  updateTabUI(index);
-}
-
-function updateTabUI(index) {
-  for (var i = 0; i < totalPages; i++) {
-    var btn = document.getElementById('tab' + i);
-    if (btn) btn.classList.toggle('active', i === index);
-  }
-}
-
-var scrollTimer = null;
-pagesScroll.addEventListener('scroll', function() {
-  if (scrollTimer) clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(function() {
-    var idx = Math.round(pagesScroll.scrollLeft / pagesScroll.clientWidth);
-    if (idx !== currentTab) {
-      currentTab = idx;
-      updateTabUI(idx);
-    }
-  }, 50);
-});
-
-var isCarouselTouch = false;
-
-pagesScroll.addEventListener('touchstart', function(e) {
-  isCarouselTouch = !!e.target.closest('.carousel-track');
-  if (isCarouselTouch) {
-    pagesScroll.style.overflowX = 'hidden';
-  }
-}, { passive: true });
-
-pagesScroll.addEventListener('touchmove', function(e) {
-  if (isCarouselTouch) {
-    pagesScroll.style.overflowX = 'hidden';
-  }
-}, { passive: true });
-
-pagesScroll.addEventListener('touchend', function() {
-  if (isCarouselTouch) {
-    isCarouselTouch = false;
-    setTimeout(function() {
-      pagesScroll.style.overflowX = 'auto';
-    }, 300);
-  }
-}, { passive: true });
 
 function countUp(el, target) {
   var dur = 1200, start = performance.now(), from = parseInt(el.textContent) || 0;
